@@ -1,0 +1,14 @@
+.container {
+  width: 99px;
+  height: 99px;
+  display: flex;
+  flex-wrap: wrap;
+}
+.box {
+  background: lightblue;
+  border: 1px solid black;
+  width: 31%;
+  height: 31%;
+  cursor: pointer;
+  text-align: center;
+}
