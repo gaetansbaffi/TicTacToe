@@ -3,6 +3,7 @@
   height: 300px;
   display: flex;
   flex-wrap: wrap;
+  margin: 0 auto;
 }
 .box {
   background: lightblue;
@@ -15,4 +16,10 @@
 
 .hidden {
   display: none;
+}
+
+.scores {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
 }

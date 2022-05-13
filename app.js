@@ -1,5 +1,7 @@
 const container = document.querySelector(".container");
 const resetBtn = document.querySelector(".reset");
+const score1 = document.querySelector(".score1");
+const score2 = document.querySelector(".score2");
 let gameState = true;
 
 const Player = (name, mark, score) => {
@@ -13,7 +15,8 @@ const player2 = Player("kim", "o", 0);
 //set game
 const Game = (player1, player2) => {
   const box = document.querySelectorAll(".box");
-
+  let tempArr1 = [];
+  let tempArr2 = [];
   let playerTurn = true;
 
   box.forEach((element) => {
@@ -37,52 +40,95 @@ const Game = (player1, player2) => {
       board[index] = e.target.textContent;
     };
 
-    const winConditions = (board, player) => {
-      const _checkForRows = (board) => {
-        for (let i = 0; i < 3; i++) {
-          let row = [];
-          for (let j = i * 3; j < i * 3 + 3; j++) {
-            console.log(j);
-            row.push(board.getField(j));
-          }
-
-          if (
-            row.every((field) => field == "X") ||
-            row.every((field) => field == "O")
-          ) {
-            return true;
-          }
+    const winConditions = (box, board, player) => {
+      if (player) {
+        if (player.mark === "x") {
+          tempArr1.push(parseInt(box.id));
+          checkWin(tempArr1);
+        } else if (player.mark === "o") {
+          tempArr2.push(parseInt(box.id));
+          checkWin(tempArr2);
         }
-        return false;
-      };
-
-      _checkForRows(board);
+      }
       if (!board.includes(undefined)) {
+        gameState = false;
         alert("it's a tie!");
         resetBtn.classList.toggle("hidden");
         resetBtn.addEventListener("click", (e) => resetGame(gameBoard.board));
-        gameState = false;
+      }
+    };
+
+    const checkWin = (arr) => {
+      const rows = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+      ];
+      const cols = [
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+      ];
+      const cross = [
+        [0, 4, 8],
+        [2, 4, 6],
+      ];
+      const winCons = [...rows, ...cols, ...cross];
+
+      for (const winCon of winCons) {
+        if (checkWin(winCon, arr)) {
+          gameState = false;
+          player.score++;
+          resetGame();
+        }
       }
 
-      const checkColumns = (board) => {};
+      function checkWin(row, arr) {
+        return row.every((value) => {
+          return arr.includes(value);
+        });
+      }
     };
 
     const resetGame = () => {
-      let board = (gameBoard.board = new Array(9));
-      container.innerHTML = "";
-      gameBoard.addSquares(board);
-      resetBtn.classList.toggle("hidden");
-      Game(player1, player2);
-      return (gameState = true);
+      const updateScores = () => {
+        score1.textContent = player1.score;
+        score2.textContent = player2.score;
+      };
+      const nextRound = () => {
+        updateScores();
+        let board = (gameBoard.board = new Array(9));
+        container.innerHTML = "";
+        gameBoard.addSquares(board);
+        Game(player1, player2);
+        return (gameState = true);
+      };
+
+      const nextGame = () => {
+        player1.score = player2.score = 0;
+        updateScores();
+        resetBtn.classList.toggle("hidden");
+        nextRound();
+      };
+
+      if (player1.score >= 3 || player2.score >= 3) {
+        updateScores();
+        gameState = false;
+        resetBtn.classList.toggle("hidden");
+        resetBtn.addEventListener("click", nextGame);
+      } else {
+        nextRound();
+      }
     };
 
     while (gameState) {
-      if (!e.target.textContent) {
+      let box = e.target;
+      if (!box.textContent) {
         let board = gameBoard.board;
         changePlayer();
-        e.target.textContent = player.mark;
+        box.textContent = player.mark;
         updateBoard(board);
-        winConditions(board, player);
+        winConditions(box, board, player);
         return;
       } else {
         return alert("Illegal move!");
