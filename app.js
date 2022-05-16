@@ -14,6 +14,7 @@ const player2 = Player("kim", "o", 0);
 
 //set game
 const Game = (player1, player2) => {
+  //variables
   const box = document.querySelectorAll(".box");
   let tempArr1 = [];
   let tempArr2 = [];
@@ -23,9 +24,11 @@ const Game = (player1, player2) => {
     element.addEventListener("click", (e) => addMark(e));
   });
 
+  //player make marks by clicking on it
   const addMark = (e) => {
     let player;
 
+    //change turns
     const changePlayer = () => {
       if (playerTurn) {
         player = player1;
@@ -37,10 +40,11 @@ const Game = (player1, player2) => {
 
     const updateBoard = (board) => {
       let index = parseInt(e.target.id);
-      board[index] = e.target.textContent;
+      board[index] = e.target.firstChild.textContent;
     };
 
     const winConditions = (box, board, player) => {
+      console.log(box);
       if (player) {
         if (player.mark === "x") {
           tempArr1.push(parseInt(box.id));
@@ -95,40 +99,50 @@ const Game = (player1, player2) => {
         score1.textContent = player1.score;
         score2.textContent = player2.score;
       };
+
       const nextRound = () => {
-        updateScores();
         let board = (gameBoard.board = new Array(9));
         container.innerHTML = "";
         gameBoard.addSquares(board);
+        resetBtn.classList.toggle("hidden");
         Game(player1, player2);
+
         return (gameState = true);
       };
 
       const nextGame = () => {
         player1.score = player2.score = 0;
         updateScores();
+        return nextRound();
+      };
+      const playAgain = (choice) => {
+        updateScores();
         resetBtn.classList.toggle("hidden");
-        nextRound();
+        resetBtn.addEventListener("click", choice);
       };
 
       if (player1.score >= 3 || player2.score >= 3) {
-        updateScores();
+        //game is over
         gameState = false;
-        resetBtn.classList.toggle("hidden");
-        resetBtn.addEventListener("click", nextGame);
+        return playAgain(nextGame);
       } else {
-        nextRound();
+        const winner = document.createElement("h2");
+        winner.className = "winner";
+        winner.innerHTML = `${player.name} wins!`;
+        container.prepend(winner);
+        return playAgain(nextRound);
       }
     };
 
     while (gameState) {
-      let box = e.target;
+      let box = e.target.firstChild;
+
       if (!box.textContent) {
         let board = gameBoard.board;
         changePlayer();
         box.textContent = player.mark;
         updateBoard(board);
-        winConditions(box, board, player);
+        winConditions(box.parentElement, board, player);
         return;
       } else {
         return alert("Illegal move!");
@@ -143,9 +157,12 @@ const gameBoard = (() => {
   const addSquares = (board) => {
     for (let [index, value] of board.entries()) {
       let box = document.createElement("div");
+      let text = document.createElement("p");
       box.setAttribute("id", `${index}`);
       box.className = "box";
+      text.classList = "text";
       container.appendChild(box);
+      box.appendChild(text);
     }
   };
   addSquares(board);

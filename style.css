@@ -1,13 +1,18 @@
 .container {
   width: 300px;
-  height: 300px;
+
   display: flex;
   flex-wrap: wrap;
-  margin: 0 auto;
+  margin: 20px auto;
 }
 .box {
-  background: lightblue;
-  outline: 1px black solid;
+  background: #e9c46a;
+  outline: 1px #264653 solid;
+  color: #264653;
+  font-size: 2rem;
+  font-weight: bolder;
+  min-width: 100px;
+  min-height: 100px;
   width: 33%;
   height: 33%;
   cursor: pointer;
@@ -22,4 +27,17 @@
   display: flex;
   justify-content: space-between;
   padding: 10px;
+}
+
+.winner {
+  width: 100%;
+  text-align: center;
+}
+
+.reset {
+  padding: 20px 30px;
+  border-radius: 25px;
+  border: none;
+  background-color: #e76f51;
+  cursor: pointer;
 }
