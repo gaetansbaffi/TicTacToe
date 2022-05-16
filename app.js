@@ -44,7 +44,6 @@ const Game = (player1, player2) => {
     };
 
     const winConditions = (box, board, player) => {
-      console.log(box);
       if (player) {
         if (player.mark === "x") {
           tempArr1.push(parseInt(box.id));
@@ -58,7 +57,7 @@ const Game = (player1, player2) => {
         gameState = false;
         alert("it's a tie!");
         resetBtn.classList.toggle("hidden");
-        resetBtn.addEventListener("click", (e) => resetGame(gameBoard.board));
+        resetBtn.addEventListener("click", (e) => restart(gameBoard.board));
       }
     };
 
@@ -83,7 +82,9 @@ const Game = (player1, player2) => {
         if (checkWin(winCon, arr)) {
           gameState = false;
           player.score++;
-          resetGame();
+          console.log("hi");
+          updateScores();
+          restart();
         }
       }
 
@@ -94,43 +95,41 @@ const Game = (player1, player2) => {
       }
     };
 
-    const resetGame = () => {
-      const updateScores = () => {
-        score1.textContent = player1.score;
-        score2.textContent = player2.score;
+    const updateScores = () => {
+      score1.textContent = player1.score;
+      score2.textContent = player2.score;
+    };
+
+    const restart = () => {
+      const playAgain = () => {
+        resetBtn.classList.toggle("hidden");
+        resetBtn.addEventListener("click", resetGame);
       };
 
-      const nextRound = () => {
-        let board = (gameBoard.board = new Array(9));
+      const resetGame = () => {
         container.innerHTML = "";
-        gameBoard.addSquares(board);
-        resetBtn.classList.toggle("hidden");
+
+        gameBoard.board = new Array(9);
+        gameBoard.addSquares(gameBoard.board);
+        resetBtn.className += " hidden";
         Game(player1, player2);
-
+        updateScores();
         return (gameState = true);
-      };
-
-      const nextGame = () => {
-        player1.score = player2.score = 0;
-        updateScores();
-        return nextRound();
-      };
-      const playAgain = (choice) => {
-        updateScores();
-        resetBtn.classList.toggle("hidden");
-        resetBtn.addEventListener("click", choice);
       };
 
       if (player1.score >= 3 || player2.score >= 3) {
         //game is over
-        gameState = false;
-        return playAgain(nextGame);
+        playAgain();
+        alert(`${player.name} wins! Click reset to start a new game!`);
+        player1.score = player2.score = 0;
+
+        return (gameState = false);
       } else {
         const winner = document.createElement("h2");
         winner.className = "winner";
         winner.innerHTML = `${player.name} wins!`;
         container.prepend(winner);
-        return playAgain(nextRound);
+        return playAgain();
       }
     };
 

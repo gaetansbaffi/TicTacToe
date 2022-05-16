@@ -1,10 +1,27 @@
 .container {
   width: 300px;
-
   display: flex;
   flex-wrap: wrap;
   margin: 20px auto;
 }
+
+ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+li > button {
+  margin: 0 auto;
+}
+
 .box {
   background: #e9c46a;
   outline: 1px #264653 solid;
