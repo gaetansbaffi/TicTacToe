@@ -36,14 +36,16 @@ li > button {
   text-align: center;
 }
 
-.hidden {
-  display: none;
-}
-
 .scores {
   display: flex;
   justify-content: space-between;
   padding: 10px;
+  font-size: 2rem;
+  text-transform: capitalize;
+}
+
+.hidden {
+  display: none;
 }
 
 .winner {
