@@ -16,10 +16,57 @@ li {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 10px;
+}
+label {
+  font-weight: bold;
+}
+
+li div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+input,
+select {
+  padding: 0.2rem;
+  text-align: center;
+  border: none;
+}
+
+input {
+  font-size: 1.4rem;
+  border-radius: 1rem;
+  border: none;
+  background-color: #e76f51;
+}
+
+select {
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.4rem;
+  background-color: #e76f51;
+  border-radius: 1rem;
 }
 
 li > button {
-  margin: 0 auto;
+  margin: 10px auto;
+  border: none;
+  padding: 1rem;
+  font-size: 1.8rem;
+  font-weight: bold;
+  border-radius: 1rem;
+  background-color: #264653;
+  color: white;
+}
+
+li > button:hover {
+  transition: 0.3s all;
+  background-color: white;
+  color: #264653;
 }
 
 .box {
