@@ -1,3 +1,148 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol,
+ul {
+  list-style: none;
+}
+blockquote,
+q {
+  quotes: none;
+}
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+/* end of reset */
+
+nav {
+  background-color: #264653;
+  color: white;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  font-size: 30px;
+}
+
+nav h1 {
+  margin: 0 25px;
+  font-weight: bolder;
+}
+
 .container {
   width: 300px;
   display: flex;
@@ -20,6 +165,7 @@ li {
 }
 label {
   font-weight: bold;
+  margin: 10px 10px 5px 10px;
 }
 
 li div {
@@ -61,26 +207,36 @@ li > button {
   border-radius: 1rem;
   background-color: #264653;
   color: white;
+  border: 3px solid transparent;
 }
 
 li > button:hover {
   transition: 0.3s all;
   background-color: white;
   color: #264653;
+  border: 3px solid #264653;
 }
 
 .box {
-  background: #e9c46a;
-  outline: 1px #264653 solid;
-  color: #264653;
-  font-size: 2rem;
+  background: #264653;
+  outline: 1px #e76f51 solid;
+  color: #e76f51;
+  text-transform: uppercase;
+  font-size: 60px;
   font-weight: bolder;
   min-width: 100px;
   min-height: 100px;
-  width: 33%;
-  height: 33%;
+  max-width: 33%;
+  max-height: 33%;
   cursor: pointer;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+text {
+  margin: ;
 }
 
 .scores {

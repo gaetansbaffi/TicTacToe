@@ -19,6 +19,7 @@ submitBtn.addEventListener("click", (e) => setPlayers(e));
 const setPlayers = (data) => {
   const player1Name = document.querySelector(".player1Name");
   const player2Name = document.querySelector(".player2Name");
+
   data.preventDefault();
   let formData = new FormData(form);
   let players = {};
@@ -27,7 +28,9 @@ const setPlayers = (data) => {
   }
   player1 = Player(players.player1, players.player1Mark);
   player2 = Player(players.player2, players.player2Mark);
-  if (players.player1Mark === players.player2Mark) {
+  if (players.player1 === players.player2) {
+    return alert("both players can't have the same name!");
+  } else if (players.player1Mark === players.player2Mark) {
     return alert("both players can't have the same Mark!");
   }
   player1Name.textContent = player1.name + ": ";
